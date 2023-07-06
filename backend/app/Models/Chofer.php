@@ -11,7 +11,7 @@ class Chofer extends Model
     protected $table = 'choferes';
     protected $fillable = [ 'nombre', 'ap_paterno', 'ap_materno', 'dni', 'numero_licencia'];
     protected $primaryKey = 'id_chofer'; 
-
+    public $timestamps = false;
 
 
 }

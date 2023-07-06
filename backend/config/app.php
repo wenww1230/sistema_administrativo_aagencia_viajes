@@ -169,8 +169,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
-
-    /*
+/**
+         * ServiceOrchestration
+         */
+        App\Modules\Chofer\Providers\ServiceOrchestration::class,
+    
+    //colocar los demas providers aquí:
+    
+    
+    
+        /* 
     |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
