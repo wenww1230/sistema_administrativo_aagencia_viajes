@@ -1,0 +1,113 @@
+antiguo controlador: 
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Models\Chofer;
+
+
+class ChoferController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+        $choferes = Chofer::all();
+        return response()->json($choferes);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
+        $data = $request->validate([
+            'nombre' => 'required', 
+            'ap_paterno' => 'required',
+            'ap_materno' => 'required',
+            'dni' => 'required',
+            'numero_licencia' => 'required'
+        ]);
+        
+        $chofer = $this->almacenar($data);
+        
+        if ($chofer) { //si chofer es distinto a null
+            return response()->json(['success' => true, 'message' => 'Chofer creado exitosamente'], 201);
+        } else {
+            return response()->json(['success' => false, 'message' => 'No se pudo crear el chofer'], 400);
+        }
+    }
+    
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+        $chofer = Chofer::find($id);
+        
+        if ($chofer) {
+            return response()->json($chofer);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Chofer no encontrado'], 404);
+        }
+    }
+
+    /**
+     * @param  \App\Http\Requests\UpdateSongsRequest  $request
+
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $chofer = Chofer::find($id);
+    
+        if ($chofer) {
+            // Obtien los valores nuevos del request
+            $nuevosDatos = $request->all();
+    
+            // 
+            $chofer->nombre = $nuevosDatos['nombre'];
+            $chofer->ap_paterno = $nuevosDatos['ap_paterno'];
+            $chofer->ap_materno = $nuevosDatos['ap_materno'];
+            $chofer->dni = $nuevosDatos['dni'];
+            $chofer->numero_licencia = $nuevosDatos['numero_licencia'];
+    
+            // Guardae los cambios en el chofer
+            
+            $chofer->save();
+    
+            return response()->json(['success' => true, 'message' => 'Chofer actualizado exitosamente']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Chofer no encontrado'], 404);
+        }
+    }
+    
+    
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+        $chofer = Chofer::find($id);
+        
+        if ($chofer) {
+            $chofer->delete();
+            return response()->json(['success' => true, 'message' => 'Chofer eliminado exitosamente']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Chofer no encontrado'], 404);
+        }
+    }
+
+    public function almacenar($data){
+        $chofer = Chofer::create($data);
+        return $chofer;
+    }
+
+}
