@@ -14,23 +14,36 @@ class RepoChoferes implements IChoferes
     }
     public function insertarChofer($data){
         $choferes = Chofer::create($data);
+        return $choferes;
     }
     public function buscarChofer($data){
-        $choferes = Chofer::find($data);
+        $chofer = Chofer::where('id_chofer',$data)->get();
+        return $chofer;
     }
-    public function actualizarChofer($data){
+    public function buscarChoferParaActualizar($id)
+    {
+        return Chofer::find($id);
+    }
+    public function actualizarChofer($data, array $datos)
+    {
         $chofer = Chofer::find($data);
-        if($chofer){
-            $chofer->update($data);
+    
+        if ($chofer) {
+            $chofer->fill($datos);
+            $chofer->save();
+            return $chofer;
         }
-
+    
+        return null;
     }
-    public function eliminarChofer($data){
-        $chofer= Chofer::find($data);
-        if($chofer){
-            $chofer->update($data);
+    
+    public function eliminarChofer($data)
+    {
+        $chofer = Chofer::find($data);
+        if ($chofer) {
+            $chofer->delete();
         }
-    }    
+    }
 }
 
 ?>

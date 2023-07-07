@@ -168,13 +168,19 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-    ])->toArray(),
+
 /**
          * ServiceOrchestration
          */
         App\Modules\Chofer\Providers\ServiceOrchestration::class,
+
+            //colocar los demas providers aquí:
+
+
+    ])->toArray(),
+
     
-    //colocar los demas providers aquí:
+
     
     
     

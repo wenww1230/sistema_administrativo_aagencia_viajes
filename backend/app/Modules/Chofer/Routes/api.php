@@ -10,5 +10,7 @@ Route::post('/choferes', [ChoferController::class, 'store']);
 Route::get('/choferes/{id}', [ChoferController::class, 'show']);
 Route::put('/choferes/{id}', [ChoferController::class, 'update']);
 Route::delete('/choferes/{id}', [ChoferController::class, 'destroy']);
- 
+
+Route::get('/test', [ChoferController::class, 'test']);
+
 ?>
