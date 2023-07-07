@@ -4,6 +4,7 @@ namespace App\Modules\Chofer\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Chofer\Contracts\IChoferes;
+use Illuminate\Support\Facades\Log;
 
 class ChoferController extends Controller
 {
@@ -21,16 +22,20 @@ class ChoferController extends Controller
 
     public function index()
     {
+        log::debug('Mensaje de prueba en el index');
         try {
             $choferes = $this->IChofer->getChoferes();
             return response()->json($choferes);
         } catch (\Exception $e) { //excepcion de tipo 'Exception'. En PHP, el tipo de base 'Exception' es una clase base para todas las excepciones de este tipo
-            return response()->json(['success' => false, 'message' => 'Error al obtener los choferes'], 500);
+            log::debug($e->getMessage());//mostrara el mensaje de error
+            
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 
     public function store(Request $request)
     {
+        log::debug('Mensaje de prueba en el store');
         try {
             $data = $request->validate([
                 'nombre' => 'required',
@@ -48,6 +53,7 @@ class ChoferController extends Controller
                 return response()->json(['success' => false, 'message' => 'No se pudo crear el chofer'], 400);
             }
         } catch (\Exception $e) {
+            log::debug($e->getMessage());
             return response()->json(['success' => false, 'message' => 'Error al crear el chofer'], 500);
         }
     }
@@ -82,6 +88,7 @@ class ChoferController extends Controller
                 return response()->json(['success' => false, 'message' => 'Chofer no encontrado'], 404);
             }
         } catch (\Exception $e) {
+            log::debug($e->getMessage());
             return response()->json(['success' => false, 'message' => 'Error al actualizar el chofer'], 500);
         }
     }
@@ -107,6 +114,7 @@ class ChoferController extends Controller
                 'message' => 'No se encontró el chofer con el ID especificado'
             ]);
         } catch (\Exception $e) {
+            log::debug($e->getMessage());
             return response()->json(['success' => false, 'message' => 'Error al eliminar el chofer'], 500);
         }
     }

@@ -173,8 +173,7 @@ return [
          * ServiceOrchestration
          */
         App\Modules\Chofer\Providers\ServiceOrchestration::class,
-
-            //colocar los demas providers aquí:
+        //colocar los demas providers aquí:
 
 
     ])->toArray(),
